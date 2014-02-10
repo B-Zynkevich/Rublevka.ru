@@ -1,0 +1,15 @@
+{% extends "api_base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+<h2>Новость</h2>
+<div style="margin-top: 15px;">
+    Пол новости: {{ article_object.for_sex_yesno|yesno:"М,Ж,М+Ж" }}<br />
+	УРЛ заглавного фото: {% thumbnail article_object.photo "50x50" crop="center" as im %} {{im.url}} {% endthumbnail %} <br>
+    УРЛ новости внутренний: {%  url 'external_news' article_object.id %}<br />
+    УРЛ новости внешний: {{article_object.link}} <br />
+    Название: {{ article_object.title }} <br>
+    Короткое описание для главной: {{ article_object.description }}<br />
+    Содержимое: {{article_object.content}} <br>
+</div>
+{% endblock %}

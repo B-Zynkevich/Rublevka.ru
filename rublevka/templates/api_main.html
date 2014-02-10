@@ -1,0 +1,67 @@
+{% extends "api_base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+
+    <h2>4 последние важные статьи</h2>
+    {% for a in important_articles %}
+    <div style="margin-top: 15px;">
+        <div style="margin-top: 15px;">
+            Пол статьи: {{ a.for_sex_yesno|yesno:"М,Ж,М+Ж" }}<br />
+            Важная статья: {{ a.is_important|yesno:"Да,Нет" }} <br>
+            {% thumbnail a.photo "293" crop="center" as im %}
+                Высота фото: {{ im.height }}px;<br />
+                Ширина фото: {{ im.width }}px;<br />
+                УРЛ фото: {{ im.url }}<br />
+            {% endthumbnail %}
+            УРЛ статьи: {%  url 'article' a.id %}<br />
+            УРЛ всех статей этой же подрубрики: {%  url 'rubric' filterByRubricId=a.subrubric.rubric.id filterBySubRubricId=a.subrubric.id %}<br />
+            Имя подрубрики этой статьи: {{ a.subrubric.name }}<br />
+            Название: {{ a.header }}<br />
+            Короткое описание для главной: {{ a.short_descr }}<br />
+        </div>
+    </div>
+    {% endfor %}
+
+    <h2>Остальные статьи</h2>
+    <!-- Все остальные статьи -->
+    {% for tape_object in current_page %}
+        {% with tape_object.content_object as obj %}
+            {% if obj.class_name == 'Article' %}
+                <div style="margin-top: 15px;">
+                    Пол статьи: {{ obj.for_sex_yesno|yesno:"М,Ж,М+Ж" }}<br />
+                    Важная статья: {{ obj.is_important|yesno:"Да,Нет" }} <br>
+                    {% thumbnail obj.photo "293" crop="center" as im %}
+                        Высота фото: {{ im.height }}px;<br />
+                        Ширина фото: {{ im.width }}px;<br />
+                        УРЛ фото: {{ im.url }}<br />
+                    {% endthumbnail %}
+                    УРЛ статьи: {%  url 'article' obj.id %}<br />
+                    УРЛ всех статей этой же подрубрики: {%  url 'rubric' filterByRubricId=obj.subrubric.rubric.id filterBySubRubricId=obj.subrubric.id %}<br />
+                    Имя подрубрики этой статьи: {{ obj.subrubric.name }}<br />
+                    Название: {{ obj.header }}<br />
+                    Короткое описание для главной: {{ obj.short_descr }}<br />
+                </div>
+            {% endif %}
+            {% if obj.class_name == 'BlogPost' %}
+                <div style="margin-top: 15px;">
+                    УРЛ блогозаписи: {%  url 'blog_post' obj.id %}<br />
+                    Название: {{ obj.title }} <br>
+                    Короткое описание для главной: {{ obj.content|truncatewords:30 }}<br />
+                    УРЛ фото автора: {% thumbnail obj.author.photo "50x50" crop="center" as im %} {{im.url}} {% endthumbnail %}
+                </div>
+            {% endif %}
+            {% if obj.class_name == 'ExternalNews' %}
+                <div style="margin-top: 15px;">
+                    Пол новости: {{ obj.for_sex_yesno|yesno:"М,Ж,М+Ж" }}<br />
+                    УРЛ новости внутренний: {%  url 'external_news' obj.id %}<br />
+                    УРЛ новости внешний: {{a.link}} <br />
+                    Название: {{ obj.title }} <br>
+                    Короткое описание для главной: {{ obj.description }}<br />
+                </div>
+            {% endif %}
+        {% endwith %}
+
+    {% endfor %}
+
+{% endblock %}

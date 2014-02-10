@@ -1,0 +1,23 @@
+{% extends "api_base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+    <h2>Статья</h2>
+    <div style="margin-top: 15px;">
+        <div style="margin-top: 15px;">
+            Пол статьи: {{ article_object.for_sex_yesno|yesno:"М,Ж,М+Ж" }}<br />
+            Важная статья: {{ article_object.is_important|yesno:"Да,Нет" }} <br>
+            {% thumbnail article_object.photo "606" crop="center" as im %}
+                Высота фото: {{ im.height }}px;<br />
+                Ширина фото: {{ im.width }}px;<br />
+                УРЛ фото: {{ im.url }}<br />
+            {% endthumbnail %}
+            УРЛ статьи: {%  url 'article' article_object.id %}<br />
+            УРЛ всех статей этой же подрубрики: {%  url 'rubric' filterByRubricId=article_object.subrubric.rubric.id filterBySubRubricId=article_object.subrubric.id %}<br />
+            Имя подрубрики этой статьи: {{ article_object.subrubric.name }}<br />
+            Название: {{ article_object.header }}<br />
+            Короткое описание для главной: {{ article_object.short_descr }}<br />
+        </div>
+    </div>
+
+{% endblock %}

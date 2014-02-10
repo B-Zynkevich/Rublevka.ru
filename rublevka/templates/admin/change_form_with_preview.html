@@ -1,0 +1,15 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls %}
+{% block object-tools-items %}
+    <li>
+        <a href="{% url opts|admin_urlname:'history' original.pk|admin_urlquote %}" class="historylink">{% trans "History" %}</a>
+    </li>
+    <li>
+        <a href="javascript:void(0);" onclick="window.open('{% url opts|admin_urlname:'admin_preview' original.pk|admin_urlquote %}', 'Предварительный просмотр','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');" class="historylink">Предпросмотр</a>
+    </li>
+    {% if has_absolute_url %}
+        <li>
+            <a href="{% url 'admin:view_on_site' content_type_id original.pk %}" class="viewsitelink">{% trans "View on site" %}</a>
+        </li>
+    {% endif%}
+{% endblock %}

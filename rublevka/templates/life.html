@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block script %} 
+<script>
+    jQuery(document).ready(function($) {
+        var $container = $('.live_wrapper');
+
+        masonry();
+
+        $(window).load(function() {
+        console.log(containerHeight);
+            $("html").mousemove(function(){
+                masonry();
+            });
+            masonry();
+
+        });
+            function masonry() {
+
+                $container.masonry({
+                    columnWidth: 293,
+                    gutter: 15,
+                    transitionDuration: false,
+                    stamp: '.float_right',
+                    itemSelector: '.live_box_small,.float_right'
+                });
+            }
+ 
+    });
+</script>
+{% endblock %}
+
+{% block special_class %}live{% endblock %}
+
+
+{% block body %}
+                <div class="live_wrapper">
+                {% for image in current_page %}
+                    <div class="live_box_small">
+                        <a href="{{image.instagram_link}}" class="live_name">
+                            <div>{{image.account.username}}</div>
+                            <img src="{{image.url}}" alt="live" />
+                        </a>
+                    </div>
+				{% endfor %}
+                </div>
+{% endblock body %}

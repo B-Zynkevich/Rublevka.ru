@@ -1,0 +1,21 @@
+{% extends "api_base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+
+    <h2>Записи в блоге</h2>
+    <!-- Все остальные статьи -->
+    {% for a in current_page %}
+    <div style="margin-top: 15px;">
+        УРЛ блогозаписи: {%  url 'blog_post' a.id %}<br />
+        Название: {{ a.title }} <br>
+        Короткое описание для главной: {{ a.content|truncatewords:30 }}<br />
+        Имя автора: {{a.author}} <br>
+        УРЛ фото автора: {% thumbnail a.author.photo "50x50" crop="center" as im %} {{im.url}} {% endthumbnail %}
+
+        Содержание: {{a.content}}
+    </div>
+
+    {% endfor %}
+
+{% endblock %}

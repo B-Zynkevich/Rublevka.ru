@@ -1,0 +1,46 @@
+{% extends "api_base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+
+    <h2>4 последние важные статьи</h2>
+    {% for a in important_articles %}
+    <div style="margin-top: 15px;">
+        <div style="margin-top: 15px;">
+            Пол статьи: {{ a.for_sex_yesno|yesno:"М,Ж,М+Ж" }}<br />
+            Важная статья: {{ a.is_important|yesno:"Да,Нет" }} <br>
+            {% thumbnail a.photo "293" crop="center" as im %}
+                Высота фото: {{ im.height }}px;<br />
+                Ширина фото: {{ im.width }}px;<br />
+                УРЛ фото: {{ im.url }}<br />
+            {% endthumbnail %}
+            УРЛ статьи: {%  url 'article' a.id %}<br />
+            УРЛ всех статей этой же подрубрики: {%  url 'rubric' filterByRubricId=a.subrubric.rubric.id filterBySubRubricId=a.subrubric.id %}<br />
+            Имя подрубрики этой статьи: {{ a.subrubric.name }}<br />
+            Название: {{ a.header }}<br />
+            Короткое описание для главной: {{ a.short_descr }}<br />
+        </div>
+    </div>
+    {% endfor %}
+
+    <h2>Список статей</h2>
+    {% for a in current_page %}
+    <div style="margin-top: 15px;">
+        <div style="margin-top: 15px;">
+            Пол статьи: {{ a.for_sex_yesno|yesno:"М,Ж,М+Ж" }}<br />
+            Важная статья: {{ a.is_important|yesno:"Да,Нет" }} <br>
+            {% thumbnail a.photo "293" crop="center" as im %}
+                Высота фото: {{ im.height }}px;<br />
+                Ширина фото: {{ im.width }}px;<br />
+                УРЛ фото: {{ im.url }}<br />
+            {% endthumbnail %}
+            УРЛ статьи: {%  url 'article' a.id %}<br />
+            УРЛ всех статей этой же подрубрики: {%  url 'rubric' filterByRubricId=a.subrubric.rubric.id filterBySubRubricId=a.subrubric.id %}<br />
+            Имя подрубрики этой статьи: {{ a.subrubric.name }}<br />
+            Название: {{ a.header }}<br />
+            Короткое описание для главной: {{ a.short_descr }}<br />
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}

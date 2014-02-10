@@ -1,0 +1,39 @@
+{% extends "api_base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+<h2>Запись в блоге</h2>
+<div style="margin-top: 15px;">
+    УРЛ блогозаписи: {%  url 'blog_post' article_object.id %}<br />
+    Название: {{ article_object.title }} <br>
+    Короткое описание для главной: {{ article_object.content|truncatewords:30 }}<br />
+    Имя автора: {{article_object.author}} <br>
+    УРЛ фото автора: {% thumbnail article_object.author.photo "50x50" crop="center" as im %} {{im.url}} {% endthumbnail %} <br>
+    Содержимое: {{article_object.content}}
+</div>
+
+<h2>Предыдущая запись в блоге</h2>
+<div style="margin-top: 15px;">
+	{% with article_object.previous_post as previous_post %}
+		{% if previous_post %}
+		УРЛ: {% url 'blog_post' previous_post.id %} <br>
+		Название: {{previous_post.title}} <br>
+		{% else %}
+		Нет
+		{% endif %}
+	{% endwith %}
+</div>
+
+<h2>Следующая запись в блоге</h2>
+<div style="margin-top: 15px;">
+	{% with article_object.next_post as next_post %}
+		{% if next_post %}
+		УРЛ: {% url 'blog_post' next_post.id %} <br>
+		Название: {{next_post.title}} <br>
+		{% else %}
+		Нет
+		{% endif %}
+	{% endwith %}
+</div>
+
+{% endblock %}

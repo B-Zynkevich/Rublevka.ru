@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+
+{% block special_class %}blog{% endblock %}
+
+ {% block script %} 
+ <script>
+    jQuery(document).ready(function($) {
+        var $container = $('.main_content');
+
+        masonry();
+
+        $(window).load(function() {
+
+
+            masonry();
+        });
+            function masonry() {
+                $container.masonry({
+                    columnWidth: 293,
+                    gutter: 37,
+                    transitionDuration: false,
+                    stamp: '.float_right',
+                    itemSelector: '.blog_box_small,.float_right'
+                });
+            }
+
+
+    });
+</script>
+{% endblock %}
+
+{% block body %}
+
+
+                    {% for a in current_page %}
+                    <div class="blog_box_small">
+                        <a href="{%  url 'blog_post' a.id %}" class="blog_name">
+                            {{ a.title }}
+                        </a>
+                        <div class="circle">
+                            <img src="{% thumbnail a.author.photo "50x50" crop="center" as im %} {{im.url}} {% endthumbnail %}" alt="blog-img" />
+                        </div>
+                        <aside>
+                            <p>Автор</p>
+                            <b>{{ a.author }}</b>
+                        </aside>
+
+                    </div>
+                    {% endfor %}
+
+
+
+
+
+{% endblock body %}

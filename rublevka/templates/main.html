@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+<!-- Стили и скрипты -->
+ {% block script %} 
+<script>
+    jQuery(document).ready(function($) {
+        var $container = $('.main_content');
+        masonry();
+        $(window).load(function() {
+            masonry();
+        });
+
+        function masonry(){
+            $container.masonry({
+              columnWidth: 293,
+              gutter: 37,
+              transitionDuration: false,
+              stamp: '.main_wrapper',
+              isOriginLeft: false,
+
+              itemSelector: '.main_wrapper,.float_right,.article_box_small,.blog_box_small'
+            });
+
+        }
+
+    });
+</script>
+{% endblock %}
+
+{% block body %}
+
+                        <!-- Главная статья (крупная картинка)-->
+
+                        <!-- Миниатюры-->
+                            <div class="main_wrapper">
+                                <figure class="thumbnails">
+                             {% for a in important_articles %}
+                                {% thumbnail a.photo "503" crop="center" as im %}
+                                <a href="{%  url 'article' a.id %}" style="background:url({{ im.url }})" data-header="{{ a.header }}" data-rubric-main="{{ a.subrubric.name }}">
+                                {% endthumbnail %}
+                            {% endfor %}             
+                             <!--
+                                    <a href=""></a>
+                                   <a href=""></a>
+                                   <a href=""></a>
+                                   <a href=""></a>
+                               -->
+                                </figure>
+                                <div class="article_box">
+                                    <div class="main_photo__container" >
+                                        <a class="rubric_label main_photo__rubric" href="" ></a>
+                                        <a href="" >
+                                            <div class="main_photo__image"></div>
+                                        </a>
+                                        <a class="main_photo__hdr" href="" >{{ main_article.header }}</a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        {% for tape_object in current_page %}
+                            {% with tape_object.content_object as obj %}
+
+                            {% if obj.class_name == 'Article' %}
+
+                                <div class="article_box_small article_anonce__padding article_anonce__border">
+                                    <div class="article_anonce__photo">
+                                        <a href="{%  url 'article' obj.id %}">
+                                            {% thumbnail obj.photo "500x500" crop="center" as im %}
+                                            <img src="{{im.url}}" width="{{ im.width }}" height="{{ im.height }}"/>
+                                            {% endthumbnail %}
+                                        </a>
+                                    </div>
+                                    <div class="{{ obj.for_sex_yesno|yesno:"article_anonce__for_man,article_anonce__for_woman,article_anonce__for_unisex" }}"></div>
+                                    <div class="{{ obj.is_important|yesno:"important,notImportant" }}"></div>
+                                    <a href="{%  url 'rubric' filterByRubricId=obj.subrubric.rubric.id filterBySubRubricId=obj.subrubric.id %}" class="clear_link_underline">
+                                        <div class="article_anonce__rubric rubric_label {{ obj.for_sex_yesno|yesno:"rubric_label__for_man,rubric_label__for_woman,rubric_label__for_unisex" }}">{{ obj.subrubric.name }}</div>
+
+                                    </a>
+                                    <div class="article_anonce__header">
+                                        <a href="{%  url 'rublevka.views.article' obj.id %}" class="text_decoration">
+                                            {{ obj.header }}
+                                        </a>
+                                    </div>
+                                    <div class="article_anonce__short_descr">{{ obj.short_descr }}</div>
+                                </div>
+                            {% endif %}
+
+                            <!-- Все остальные блогозаписи -->
+                            {% if obj.class_name == 'BlogPost' %}
+
+                                    <div class="blog_box_small">
+                                        <a href="{%  url 'blog_post' obj.id %}" class="blog_name">
+                                            {{ obj.title }}
+                                        </a>
+                                        <div class="circle">
+                                            <img src="{% thumbnail obj.author.photo "50x50" crop="center" as im %} {{im.url}} {% endthumbnail %}" alt="blog-img" />
+                                        </div>
+                                        <aside>
+                                            <p>Автор</p>
+                                            <b>Денисов Максим</b>
+                                        </aside>
+
+                                    </div>
+                            {% endif %}
+
+                            <!-- Все остальные новости -->
+                            {% if obj.class_name == 'ExternalNews' %}
+
+                                <div class="ExternalNews article_box_small article_anonce__padding article_anonce__border">
+                                    <div class="article_anonce__photo">
+                                        <a href="{%  url 'external_news' obj.id %}">
+                                           <img src="{% thumbnail obj.photo "500x500" crop="center" as im %} {{im.url}} {% endthumbnail %}" />
+                                        </a>
+                                    </div>
+                                    <div class="{{ obj.for_sex_yesno|yesno:"article_anonce__for_man,article_anonce__for_woman,article_anonce__for_unisex" }}"></div>
+                                    <a href="http://rublevka.com/news" class="clear_link_underline">
+                                        <div class="article_anonce__rubric rubric_label {{ obj.for_sex_yesno|yesno:"rubric_label__for_man,rubric_label__for_woman,rubric_label__for_unisex" }}">Новости</div>
+                                    </a>
+                                    <div class="article_anonce__header">
+                                        <a href="{%  url 'external_news' obj.id %}" class="text_decoration">
+                                            {{ obj.title }}
+                                        </a>
+                                    </div>
+                                    <div class="article_anonce__short_descr">{{ obj.description | safe }}</div>
+                                </div>
+
+                            {% endif %}
+
+                            {% endwith %}
+
+                        {% endfor %}
+
+
+
+
+
+{% endblock %}

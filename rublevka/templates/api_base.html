@@ -1,0 +1,65 @@
+<h2>Меню - рубрики с подрубриками</h2>
+
+<a href="/?api">Главная</a><br /><br />
+
+<!-- Перебор всех рубрик в главном меню -->
+{% for rubric in mainMenu %}
+
+    <!-- Получаем УРЛ рубрики (с учетом фильтра по полу) и признак ее активности сейчас и ее имя -->
+    <a href="{{ rubric.url }}?api" {% if rubric.is_current %}style="font-weight: bold; font-size: 120%;"{% endif %}>{{ rubric.name }}</a>
+
+    <!-- Если есть подрубрики у этой рубрики, то  -->
+    {% if rubric.subrubrics %}
+        (
+            <!-- Перебор всех подрубрик, получаем УРЛ подрубрик (с учетом фильтра по полу) и признак ее активности сейчас и имя -->
+            {% for sr in rubric.subrubrics %}
+                <a href="{{ sr.url }}?api" {% if sr.is_current %}style="font-weight: bold;"{% endif %}>{{ sr.name }}</a>
+            {% endfor %}
+        )
+    {% endif %}
+
+    |||
+
+{% endfor %}
+
+================================== ЕЩЕ:
+
+<!-- Перебор всех рубрик в пункте "Еще" -->
+{% for rubric in mainMenuMore %}
+
+    <!-- Получаем УРЛ рубрики (с учетом фильтра по полу) и признак ее активности сейчас и ее имя -->
+    <a href="{{ rubric.url }}?api" {% if rubric.is_current %}style="font-weight: bold;  font-size: 120%;"{% endif %}>{{ rubric.name }}</a> |||
+
+{% endfor %}
+
+<h2>Фильтр статей по полу</h2>
+{% with from_url=request.path|add:"?api" %}
+<a href="{% url 'choose_sex' 1 %}?from={{ from_url|urlencode }}" {% if sexFilter == 1 %}style="font-weight: bold; font-size: 120%;"{% endif %}>МУЖ</a><br />
+<a href="{% url 'choose_sex' 2 %}?from={{ from_url|urlencode }}" {% if sexFilter == 2 %}style="font-weight: bold; font-size: 120%;"{% endif %}>ЖЕН</a><br />
+<a href="{% url 'choose_sex' 0 %}?from={{ from_url|urlencode }}" {% if sexFilter == 0 %}style="font-weight: bold; font-size: 120%;"{% endif %}>МУЖ и ЖЕН</a><br />
+{% endwith %}
+
+
+{% block pagination %}
+    <h2>Страницы</h2>
+    <!-- Паггинация -->
+    <div style="margin-top: 15px;">
+        {% if current_page.has_previous %}
+            <a href="?api&page={{ current_page.previous_page_number }}">Пред.</a>
+        {% endif %}
+        {% for page_num in paginator.page_range %}
+            {% if page_num != current_page.number %}
+                <a href="?api&page={{ page_num }}">{{ page_num }}</a>
+            {% else %}
+                <span>{{page_num}}</span>
+            {% endif %}
+
+        {% endfor %}
+        {% if current_page.has_next %}
+            <a href="?api&page={{ current_page.next_page_number }}">След.</a>
+        {% endif %}
+    </div>
+{% endblock pagination %}
+
+{% block body %}
+{% endblock %}

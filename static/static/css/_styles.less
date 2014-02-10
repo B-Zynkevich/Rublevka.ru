@@ -1,0 +1,609 @@
+/* --------------------- base ---------------------- */
+body {
+    background-color: #f3f3f3;
+}
+.container {
+    min-width: 1000px; 
+    max-width: 1000px;
+}
+/* Нужно для сафари, там остается подчеркивание у метки рубрик поверх фото, этим классом убираем его */
+.clear_link_underline, .clear_link_underline:hover {
+    text-decoration: none;
+}
+
+/* Используется в лейауте страницы отображения статьи */
+.height-full {
+    height: 100%;
+    .col-padding-reset;
+}
+/* Убираем bootstrap padding */
+.col-padding-reset {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+/*
+    Убираем bootstrap марджины для строк.
+    Поскольку из-за них часть страницы (крайние 15 пкс) заезает за край браузера при сжатии
+    (замечено в Хроме).
+*/
+.row-margin-reset {
+    margin-left: 0px;
+    margin-right: 0px;   
+}
+.row {
+    .row-margin-reset;
+}
+
+.header{
+    height: 177px;    
+    background: #f3f3f3;
+    position: relative;
+
+    .logo {
+        position: absolute;
+        left:46%;
+        top:40%;
+        font-size: 20px;
+        z-index: 1222;
+        text-decoration: none;
+
+    }
+}
+.header__man, .header__woman {
+    color: lightgray;
+
+    a {
+        display: block;
+        height: 100%;
+        text-align: center;
+        font-family: Times New Roman;
+        font-size: 56px;
+        text-transform: uppercase;
+        color: black;
+        text-decoration: none;
+        line-height: 3;       
+    }
+    
+}
+.header__woman {
+
+}
+.nav_wrapper {
+    height: 63px;
+}
+.menu {
+    height: 63px;
+    position: absolute;
+    width: 100%;
+    top: 167px;
+    z-index: 22;
+    border-bottom: 2px solid rgb(226, 226, 226);
+    border-left: 1px solid rgb(243, 243, 243);
+    border-right: 1px solid rgb(243, 243, 243);
+    background-color: #fff;
+
+    -webkit-transition: background-color 400ms ease;
+    -moz-transition: opacity 200ms ease;
+    -ms-transition: opacity 200ms ease;
+    -o-transition: opacity 200ms ease;
+    transition: background-color 400ms ease;
+
+    .menu__search {
+        margin-right: 40px;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 76px;
+        height: 100%;
+        border-left: 1px solid rgb(226, 226, 226);
+        border-right: 1px solid rgb(226, 226, 226);
+        background: url(/static/img/icon_search.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: #fff;
+        cursor: pointer;
+
+        &.active {
+            z-index: 1112
+        }
+    }
+    
+    &:after {
+        content: "";
+        border-bottom: 1px solid #cccccc;
+        height: 1px;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+    }   
+}
+.menu__fixed {
+    position: fixed;
+    width: 100%;
+    z-index: 22;
+    background-color: #000;
+    top:0px;    
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    border: 0;
+
+    -webkit-transition:  background-color 600ms ease-in;
+    -moz-transition: background-color 600ms ease-in;
+    -ms-transition: background-color 600ms ease-in;
+    -o-transition: background-color 600ms ease-in;
+    transition: background-color 600ms ease-in;
+
+    a {
+        color: #fff;
+    }
+    .menu__search {        
+        border-color: #2b2b2b;
+        background: url(/static/img/icon_search_white.png) center no-repeat;        
+    }
+
+    &:after {
+        border: 0;
+        height: 0;
+    }
+
+
+}
+.menu__wrapper{
+    height: 63px;
+}
+.menu_inner {
+    width: 1000px;
+    margin: 0 auto;
+}
+.menu__search_textblock {
+    position: absolute;
+    width: 421px;
+    height: 61px;
+    z-index: 1111;
+    opacity: 0;
+    border: 1px solid #e2e2e2;
+    left: -378px;
+    top: 61px;
+    background: #fff;
+    border-top: 0px;
+
+    -webkit-transition:  opacity 150ms;
+    -moz-transition: opacity 150ms;
+    -ms-transition: opacity 150ms;
+    -o-transition: opacity 150ms;
+    transition: opacity 150ms;
+
+    & input[type="text"] {
+        border: 0;
+        outline: 0;
+        width: 100%;
+        color: #ccc;
+        padding: 0px 21px;
+        margin-top: 21px;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    &.active {
+        opacity: 1;
+
+        -webkit-transition:  opacity 150ms;
+        -moz-transition: opacity 150ms;
+        -ms-transition: opacity 150ms;
+        -o-transition: opacity 150ms;
+        transition: opacity 150ms;
+    }
+}
+.menu__item {
+    padding-right: 22px;
+    display: inline-block;
+    color: black;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 63px;
+    color: black;
+    text-transform: uppercase;
+
+    &:hover {
+        color: #3575d8;
+        cursor: pointer;
+        text-decoration: none;    
+    }
+    &.active {
+        color: #3575d8;
+    }
+    &:first-of-type {
+        margin-left: 38px;
+    }
+
+}
+
+.footer {
+    border-top: 1px solid rgb(204, 204, 204);
+    height: 177px;
+    background-color: white;
+    border-left: 1px solid rgb(243, 243, 243);
+    border-right: 1px solid rgb(243, 243, 243);
+    padding-top: 15px;
+    z-index: 0;
+    position: relative;
+ }
+ .footer_wrapper {
+    margin: 0 auto;
+    width: 1000px;
+ }
+.footer:before {
+    content: "";
+    position: absolute;
+    display: block;
+    z-index: -1;
+    left: -1px;
+    top: -3px;
+    right: -1px;
+    bottom: 0px;
+    border-top: 2px solid rgb(226, 226, 226);
+}
+.footer__text {
+    font-size: 11px;
+    font-family: Arial;
+    width: 600px;
+    margin-left: 38px;
+    line-height: 22px;
+    margin-top: 3px;
+    position: relative;
+}
+.footer__social{
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    height: 40px;
+    margin-top: -20px;
+    background-image: url(/static/img/social_logos.png);
+    width: 148px;
+}
+.footer__tw_link{
+    display: block;
+    position: absolute;
+    right: 148px;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    margin-top: -20px;
+    background-image: url(/static/img/social_logos.png);
+    margin-right: -360px;
+}
+.footer__vk_link{
+    display: block;
+    position: absolute;
+    right: 94px;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    margin-top: -20px;
+    background-image: url(/static/img/social_logos.png);
+    background-position: -54px;
+    margin-right: -360px;
+}
+.footer__fb_link{
+    display: block;
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    margin-top: -20px;
+    background-image: url(/static/img/social_logos.png);
+    background-position: -108px;
+    margin-right: -360px;
+}
+.page__content{
+    background-color: rgb(243, 243, 243);
+    padding-bottom: 37px;
+}
+/* --------------------- base end ---------------------- */
+
+/* ----------------------- main ------------------------ */
+.article_box{
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0px 1px 0px 0px #E7E7E7;
+    border: 1px solid #cfcfcf;
+    background-color: white;
+    width: 608px;
+}
+.article_box_small {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0px 1px 0px 0px #E7E7E7;
+    border: 1px solid #cfcfcf;
+    background-color: white;
+    width: 295px; 
+    position: relative;
+}
+.main_content{
+    padding-left: 40px;
+    padding-top: 17px;
+    padding-right: 37px;
+}
+.article_anonce__header{
+    font-family: Times New Roman;
+    color: black;
+    font-size: 29px;
+    margin-top: 12px;
+    line-height: 35px;
+}
+.article_anonce__header a{
+    text-decoration: none;
+    color: inherit;
+}
+.article_anonce__header a{
+    text-decoration: none;
+    color: inherit;
+}
+.article_anonce__header__for_man:hover {
+    color: #3575d8;
+}
+.article_anonce__header__for_woman:hover {
+    color: #f25858;
+}
+.article_anonce__header__for_unisex:hover {
+    color: #3575d8;
+}
+.article_anonce__short_descr{
+    font-size: 12px;
+    font-family: Arial;
+    color: black;
+    line-height: 21px;
+    margin-top: 13px;
+    margin-bottom: 18px;
+}
+.article_anonce__padding{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.article_anonce__rubric{
+    float: left;
+    position: absolute;
+    margin-top: -47px;
+}
+.article_anonce__photo{
+    margin-left: -25px;
+    margin-right: -25px;
+}
+.article_anonce__photo img{
+    border-radius: 5px 5px 0px 0px;
+}
+/*.article_anonce__photo img:hover {
+    opacity: 0.8;
+}*/
+.article_anonce__photo:first-child img:hover {
+    opacity: 0.8;
+    
+    -webkit-transition: opacity 200ms ease;
+    -moz-transition: opacity 200ms ease;
+    -ms-transition: opacity 200ms ease;
+    -o-transition: opacity 200ms ease;
+    transition: opacity 200ms ease;
+}
+
+
+
+
+
+.article_anonce__for_man{
+    margin-left: -25px;
+    margin-right: -25px;
+    height: 5px;
+    background-color: #3575d8;
+}
+.article_anonce__for_woman{
+    margin-left: -25px;
+    margin-right: -25px;
+    height: 5px;
+    background-color: #ee776e;
+}
+.article_anonce__for_unisex{
+    margin-left: -25px;
+    margin-right: -25px;
+    height: 5px;
+    background-color: white;
+}
+.rubric_label__for_man:hover{
+    color: white;
+    background-color: #3575d8;
+    text-decoration: none;;
+}
+.rubric_label__for_unisex:hover{
+    color: white;
+    background-color: #3575d8;
+}
+.rubric_label__for_woman:hover{
+    color: white;
+    background-color: #f25858;
+}
+
+.main_photo__for_woman2 .main_photo__hdr:hover{
+    color: #f25858;
+}
+.main_photo__for_man2 .main_photo__hdr:hover{
+    color: #3575d8;
+}
+.main_photo__for_unisex2 .main_photo__hdr:hover{
+    color: #3575d8;
+}
+/* --------------------- main end ---------------------- */
+/* --------------------- article ----------------------- */
+.right_banners__column{
+    padding: 0px;
+}
+.article__content {
+    margin-top: 18px;
+    margin-left: 25px;
+    margin-right: 3px;
+    border: 1px solid #cfcfcf;
+    box-shadow: 0px 1px 0px 0px #e7e7e7;
+    background-color: white;
+    line-height: 27px;
+    font-size: 16px;
+    padding-left: 36px;
+    padding-right: 36px;
+    font-weight: normal;
+    padding-bottom: 20px;
+    /* Для больших фото главной и в тексте статьи - обрезаем их */
+    width: 608px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.article__content h1 {
+    font-size: 30px;
+    font-family: Times New Roman;
+    margin-top: 30px;
+    margin-bottom: 9px;
+}
+.article__content img {
+    margin-left: -36px;
+    margin-right: -36px;
+    margin-top: 20px;
+    display: block;
+    position: relative;
+}
+
+
+.rubric_label {
+    padding: 0 11px;
+    background-color: white;
+    height: 25px;
+    line-height: 25px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 15px;
+    color: black;
+}
+
+
+.main_photo__container2{
+    position: relative;
+    border-radius: inherit;
+    display: table-cell;
+    vertical-align: bottom;
+}
+.main_photo__gradient{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: red;
+    border-radius: 5px;
+
+    /* http://www.colorzilla.com/gradient-editor/#000000+0,000000+100&0+61,0.78+100;Custom*/
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 61%, rgba(0,0,0,0.78) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(61%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.78))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 61%,rgba(0,0,0,0.78) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 61%,rgba(0,0,0,0.78) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 61%,rgba(0,0,0,0.78) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 61%,rgba(0,0,0,0.78) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#c7000000',GradientType=0 ); /* IE6-9 */
+}
+.main_photo__sex_color{
+    border-bottom: 5px solid #3575d8;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    height: 5px;
+    border-radius: 0px 0px 5px 5px;
+}
+.main_photo__for_woman2 .main_photo__sex_color{
+    border-color: #ee776e;
+}
+.main_photo__for_man2 .main_photo__sex_color{
+    border-color: #3575d8;
+}
+.main_photo__for_unisex2 .main_photo__sex_color{
+    border-color: white;
+}
+.main_photo__image{
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    border-radius: 5px 5px 7px 7px;
+}
+.main_photo__rubric3{
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+    margin-left: 36px;
+    margin-bottom: 13px;
+
+    .clear_link_underline;
+}
+.main_photo__hdr {
+    position: relative;
+    display: block;
+    z-index: 2;
+    margin-left: 36px;
+    margin-bottom: 29px;
+    font-size: 49px;
+    font-family: Times New Roman;
+    color: white;
+    line-height: 54px;
+
+    .clear_link_underline;
+}
+.main_photo__for_man2 .rubric_label:hover{
+    color: white;
+    background-color: #3575d8;
+    text-decoration: none;;
+}
+.main_photo__for_unisex2 .rubric_label:hover{
+    color: white;
+    background-color: #3575d8;
+}
+.main_photo__for_woman2 .rubric_label:hover{
+    color: white;
+    background-color: #f25858;
+}
+
+.right_banner__margins{
+    margin-top: 18px;
+    margin-left: 0px;
+    margin-right: 38px;
+}
+.right_banner__box{
+    padding-top: 19px;
+    padding-bottom: 23px;
+    padding-left: 25px;
+    padding-right: 24px;
+    border: 1px solid #cfcfcf;
+    box-shadow: 0px 1px 0px 0px #e7e7e7;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.right_banner__white{
+    background-color: white;
+    border-radius: 5px;
+}
+.right_banner__grey{
+    background-color: rgb(243, 243, 243);
+    border-radius: 5px;
+}
+
+
+/* Для главной фото под ней отступ */
+/* Для главной фотки другие правила чем для всех других картинок внутри статьи, маргины сбрасываем. */
+/* Тут важно указать название тэга чтобы приоритет был выше чем у правила .article__content img */
+img.main_photo__image {
+    margin-bottom: 30px;
+    margin-top: 0px;
+    border-radius: 5px;
+}
+/* -------------------- article end ---------------------- */

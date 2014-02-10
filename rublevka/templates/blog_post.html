@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block special_class %}blog_open{% endblock %}
+
+{% block script %} 
+<script>
+    jQuery(document).ready(function($) {
+		$('html').addClass('article');
+    });
+</script>
+{% endblock %}
+
+{% block body %}
+
+
+	                <div class="left_blogColumn">
+	                    <a href="" onclick="history.back();return false;">Вернуться к списку</a>        
+					</div>
+	                <div class="center_blogColumn">
+	                    <header>{{ article_object.title }}</header>
+	
+	                        <div>
+								<p>{{article_object.content | safe }}</p>
+	                        </div>
+	                </div>
+	                <div class="right_blogColumn">
+                        <div class="circle">
+	                        	<img src="{% thumbnail article_object.author.photo "180x180" crop="center" as im %} {{im.url}} {% endthumbnail %}" alt="blog-img" />
+	                    </div>
+	                    <span>Автор:</span>
+                        <div>{{article_object.author}}</div>
+
+
+
+	                </div>
+
+	            </div>
+
+	        </section>
+    	</section>
+	    <div class="row blog_comment">
+	        <div class="blog_border">
+	                <div class="social_buttons">
+	                    <figure>
+	                         <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fpages%2Frublevkacom%2F742028069146350&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=false&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowtransparency="true"></iframe>
+	                    </figure>
+	                    <figure>
+	                        <!-- Put this script tag to the <head> of your page -->
+	                        <script type="text/javascript" src="//vk.com/js/api/openapi.js?101"></script>
+
+	                        <!-- Put this div tag to the place, where the Like block will be -->
+	                        <div id="vk_like" style="height: 22px; width: 100px; background-image: none; position: relative; clear: both; background-position: initial initial; background-repeat: initial initial;"><iframe name="fXD71eac" frameborder="0" src="http://vk.com/widget_like.php?app=3968419&amp;width=100%&amp;_ver=1&amp;page=0&amp;url=http%3A%2F%2Fbogdan.rublevka.com%2Farticle%2F35%2F&amp;type=mini&amp;verb=0&amp;title=%D0%A0%D1%83%D0%B1%D0%BB%D0%B5%D0%B2%D0%BA%D0%B0&amp;description=&amp;image=&amp;text=&amp;h=22&amp;14251065294" width="100%" height="22" scrolling="no" id="vkwidget1" style="overflow: hidden; height: 22px; width: 100px; z-index: 150;"></iframe></div>
+	                        <script type="text/javascript">
+	                        VK.Widgets.Like("vk_like", {type: "mini"});
+	                        </script>
+	                    </figure>
+	                    <figure>
+	                        <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="http://platform.twitter.com/widgets/tweet_button.1384205748.html#_=1384338838421&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Fbogdan.rublevka.com%2Farticle%2F35%2F&amp;size=m&amp;text=%D0%A0%D1%83%D0%B1%D0%BB%D0%B5%D0%B2%D0%BA%D0%B0&amp;url=http%3A%2F%2Fbogdan.rublevka.com%2Farticle%2F35%2F&amp;via=Zinkevich_Neal" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 110px; height: 20px;"></iframe>
+	                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	                    </figure>
+	                    <figure>
+                            <!-- Place this tag where you want the +1 button to render. -->
+                           <div class="g-plusone" data-size="medium" data-annotation="inline" data-width="300"></div>
+
+                            <!-- Place this tag after the last +1 button tag. -->
+                            <script type="text/javascript">
+                              (function() {
+                                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                                po.src = 'https://apis.google.com/js/plusone.js';
+                                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                              })();
+                            </script>
+                    </figure>
+
+	                </div>
+	        </div>
+	        <form class="comments">
+				<div id="mc-container"></div>
+				<script type="text/javascript">
+				var mcSite = '26705';
+				(function() {
+				    var mc = document.createElement('script');
+				    mc.type = 'text/javascript';
+				    mc.async = true;
+				    mc.src = '//cackle.me/mc.widget-min.js';
+				    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+				})();
+				</script>
+				<a id="mc-link" href="http://cackle.me">Социальные комментарии <b style="color:#4FA3DA">Cackl</b><b style="color:#F65077">e</b></a>
+	        </form>
+	    </div>
+
+
+{% endblock body %}

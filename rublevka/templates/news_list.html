@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+
+
+ {% block script %} 
+<script>
+    jQuery(document).ready(function($) {
+        var $container = $('.main_content');
+        masonry();
+        $(window).load(function() {
+            masonry();
+        });
+
+        function masonry(){
+            $container.masonry({
+              columnWidth: 293,
+              gutter: 37,
+              transitionDuration: false,
+              stamp: '.main_wrapper',
+              isOriginLeft: false,
+              itemSelector: '.main_wrapper,.article_box_small,.float_right,.blog_box_small'
+            });
+        }
+
+    });
+</script>
+ {% endblock %}
+
+
+{% block body %}
+
+
+                     <!-- Все новости -->
+					{% for a in current_page %}
+                        <div class="news_list article_box_small article_anonce__padding article_anonce__border">
+                            <div class="article_anonce__photo">
+                                <a href="{%  url 'external_news' a.id %}">
+                                    <img src="{% thumbnail a.photo "500x500" crop="center" as im %} {{im.url}} {% endthumbnail %}" />
+                                </a>
+                            </div>
+                            <div class="{{ a.for_sex_yesno|yesno:"article_anonce__for_man,article_anonce__for_woman,article_anonce__for_unisex" }}"></div>
+                            <a href="{{a.link}}" class="clear_link_underline">
+                                 <div class="article_anonce__rubric rubric_label {{ a.for_sex_yesno|yesno:"rubric_label__for_man,rubric_label__for_woman,rubric_label__for_unisex" }}">Новости</div>
+                            </a>
+                            <div class="article_anonce__header">
+                                <a href="{%  url 'external_news' a.id %}" class="text_decoration">
+                                   {{ a.title }}
+                                </a>
+                            </div>
+                            <div class="article_anonce__short_descr">{{ a.description | safe}}</div>
+                        </div>
+                    {% endfor %}
+
+{% endblock body %}
+
+
+
+

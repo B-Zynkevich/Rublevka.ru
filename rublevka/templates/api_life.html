@@ -1,0 +1,15 @@
+{% extends "api_base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+<h2>Фото из инстаграм</h2>
+{% for image in current_page %}
+<div style="margin-top: 15px;">
+	Имя пользователя автора: {{image.account.username}} <br>
+	Имя автора: {{image.account.full_name}} <br>
+	URL профиля автора в Instagram: {{image.account.profile_link}} <br>
+	URL фото: {{image.url}} <br>
+	URL фото в Instagram: {{image.instagram_link}} <br>
+</div>
+{% endfor %}
+{% endblock %}
